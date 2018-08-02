@@ -43,7 +43,8 @@ Logger类可控制输出控制台日志。
 ###### 内容格式
 需要一个遵守Encodable协议的参数，返回一个Observable对象。格式如下：
 func getCheckRecord(param: VertifyCouponRecordParam) -> Observable<APIResponse<CheckRecordResponse>>。
-###### 数据库接口返回的Observable对象的泛型为直接所需要的对象；网络接口中Observable对象的泛型内容参照前文APIResult的叙述。
+###### 接口的返回
+数据库接口返回的Observable对象的泛型为直接所需要的对象；网络接口中Observable对象的泛型内容参照前文APIResult的叙述。
 #### other模块。
 Other模块存放桥接、本地框架、常量、拓展等文件。其中桥接文件是令Objective-C文件与Swift文件能相互访问、本地框架中包含自定义框架。
 ##### 常量
