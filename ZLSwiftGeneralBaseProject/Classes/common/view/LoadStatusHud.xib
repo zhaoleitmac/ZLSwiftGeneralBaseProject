@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LoadStatusHud" customModule="GGSJ" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNH-wI-7O1">
+                    <rect key="frame" x="0.0" y="237.5" width="375" height="192"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="not_net" translatesAutoresizingMaskIntoConstraints="NO" id="sdq-Hz-WJa">
+                            <rect key="frame" x="142" y="0.0" width="90" height="90"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="90" id="NKQ-Ki-gbe"/>
+                                <constraint firstAttribute="height" constant="90" id="dDg-Jl-khr"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的手机网络好像出问题了！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E2J-sz-Tat">
+                            <rect key="frame" x="94.5" y="100" width="186" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请检查您的网络设置" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvK-ik-0jl">
+                            <rect key="frame" x="128.5" y="127" width="119.5" height="16"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <color key="textColor" red="0.68627450980392157" green="0.68627450980392157" blue="0.68627450980392157" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gB-Nw-2Ur">
+                            <rect key="frame" x="143" y="148" width="90" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="90" id="XLW-Re-OO5"/>
+                                <constraint firstAttribute="height" constant="44" id="vKu-hL-jlu"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="刷新一下">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.94999999999999996" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cl_borderWidth">
+                                    <real key="value" value="0.5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="cl_borderColor">
+                                    <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cl_corner">
+                                    <real key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="sdq-Hz-WJa" firstAttribute="centerX" secondItem="FNH-wI-7O1" secondAttribute="centerX" id="Bql-kY-TDZ"/>
+                        <constraint firstItem="MvK-ik-0jl" firstAttribute="centerX" secondItem="FNH-wI-7O1" secondAttribute="centerX" id="De6-Mo-e2j"/>
+                        <constraint firstItem="4gB-Nw-2Ur" firstAttribute="centerX" secondItem="FNH-wI-7O1" secondAttribute="centerX" id="LCd-za-Ld4"/>
+                        <constraint firstItem="E2J-sz-Tat" firstAttribute="centerX" secondItem="FNH-wI-7O1" secondAttribute="centerX" id="Q25-VZ-GOd"/>
+                        <constraint firstItem="MvK-ik-0jl" firstAttribute="top" secondItem="E2J-sz-Tat" secondAttribute="bottom" constant="10" id="Vbg-i8-0qC"/>
+                        <constraint firstItem="E2J-sz-Tat" firstAttribute="top" secondItem="sdq-Hz-WJa" secondAttribute="bottom" constant="10" id="YaG-g4-kxO"/>
+                        <constraint firstItem="sdq-Hz-WJa" firstAttribute="top" secondItem="FNH-wI-7O1" secondAttribute="top" id="ab6-dS-xef"/>
+                        <constraint firstAttribute="bottom" secondItem="4gB-Nw-2Ur" secondAttribute="bottom" id="dCT-Uo-Tm8"/>
+                        <constraint firstItem="4gB-Nw-2Ur" firstAttribute="top" secondItem="MvK-ik-0jl" secondAttribute="bottom" constant="5" id="ho1-fu-I1U"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="FNH-wI-7O1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5OO-KG-mxb"/>
+                <constraint firstItem="FNH-wI-7O1" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="P0w-Ze-slc"/>
+                <constraint firstAttribute="trailing" secondItem="FNH-wI-7O1" secondAttribute="trailing" id="cde-oZ-mkK"/>
+            </constraints>
+            <connections>
+                <outlet property="actionBtn" destination="4gB-Nw-2Ur" id="cyt-pf-Ulu"/>
+                <outlet property="imageView" destination="sdq-Hz-WJa" id="6Af-dF-era"/>
+                <outlet property="mainLabel" destination="E2J-sz-Tat" id="Ubd-zF-Iud"/>
+                <outlet property="subLabel" destination="MvK-ik-0jl" id="Qcd-zO-Vkg"/>
+            </connections>
+            <point key="canvasLocation" x="-298" y="50"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="not_net" width="92" height="92"/>
+    </resources>
+</document>
