@@ -29,11 +29,16 @@
 ###### 基础控件
 例如可以设置图片与标题相对位置的按钮、控制器底部按钮、弹窗、自定义数字键盘等等。
 ##### 服务和工具
-###### 服务。对所有模块提供服务，例如验证输入号码是否手机号，数据纠错等等。
-###### 单例需要遵守SingletonAvaliable协议。使用SingletonFactory类建立单例。
-###### 使用ConvertUtil可以将Objective-C对象与Swift对象进行互转，swift对象必须继承于NSObject，并遵守Encodable/Decodable协议。
-###### 遵守HttpRequestAble协议可以实现网络请求方法（协议已有默认实现）。
-###### Logger类可控制输出控制台日志。
+###### 服务。
+对所有模块提供服务，例如验证输入号码是否手机号，数据纠错等等。
+###### 单例
+单例需要遵守SingletonAvaliable协议。使用SingletonFactory类建立单例。
+###### ConvertUtil
+使用ConvertUtil可以将Objective-C对象与Swift对象进行互转，swift对象必须继承于NSObject，并遵守Encodable/Decodable协议。
+###### Http请求
+遵守HttpRequestAble协议可以实现网络请求方法（协议已有默认实现）。
+###### 调试
+Logger类可控制输出控制台日志。
 ##### 网络接口与数据库接口
 ###### 内容格式
 需要一个遵守Encodable协议的参数，返回一个Observable对象。格式如下：
