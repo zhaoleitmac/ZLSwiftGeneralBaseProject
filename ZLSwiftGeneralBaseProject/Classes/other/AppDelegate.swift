@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
 //        self.window = UIWindow(frame: kScreenBounds)
 //        self.window?.backgroundColor = UIColor.white
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate {
     func changeRootViewController() {
         let rootViewController = UIViewController()
-        CATransition.cl.startFadeTransition(on: self.window!, duration: 0.25, key: nil)
+        CATransition.zl.startFadeTransition(on: self.window!, duration: 0.25, key: nil)
         self.window?.rootViewController = rootViewController;
     }
 }

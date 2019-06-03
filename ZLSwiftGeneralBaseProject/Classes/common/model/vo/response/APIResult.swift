@@ -1,5 +1,5 @@
 //
-//  APIResponse.swift
+//  APIResult.swift
 //  GGSJ
 //
 //  Created by 赵雷 on 2017/9/11.
@@ -8,16 +8,10 @@
 
 import Foundation
 
-enum APIResponse<T: APIResult>{
+enum APIResult<T: APIBaseResponse> {
     
-    enum ResponseInnerError:String {
-        case internetError = "102"
-        case unknownErrorCode = "999"
-        case dataConverError = "100"
-        case noNetworfkError = "-501"
-    }
     case success(data: T)
-    case fail((code: ResponseInnerError, msg: String))
+    case fail(error: APIError)
     
     var data: T? {
         get {
@@ -28,6 +22,24 @@ enum APIResponse<T: APIResult>{
                 return nil
             }
         }
+    }
+    
+    var error: APIError? {
+        get {
+            switch self {
+            case .fail(let error):
+                return error
+            case .success(let data):
+                if !self.isCorrect {
+                    return APIError.remoteServerError(code: data.code, message: data.msg)
+                }
+                return nil
+            }
+        }
+    }
+    
+    var errorMSg: String? {
+        return self.error?.localizedDescription
     }
     
     var isSuccess: Bool{
@@ -41,22 +53,11 @@ enum APIResponse<T: APIResult>{
         }
     }
     
-    var isloginDateOut: Bool {
+    var isCorrect: Bool {
         get{
             switch self {
             case .success(let data):
-                return data.statusCode == .dateOut
-            default:
-                return false
-            }
-        }
-    }
-    
-    var isRightData: Bool {
-        get{
-            switch self {
-            case .success(let data):
-                return data.statusCode == .success
+                return data.isSuccess()
             default:
                 return false
             }
@@ -64,11 +65,35 @@ enum APIResponse<T: APIResult>{
         }
     }
     
+    //token过期
+    var isInvalid: Bool{
+        get{
+            switch self {
+            case .success(let data):
+                return data.isInvalid()
+            default:
+                return false
+            }
+        }
+    }
+    
+    //用户不存在
+    var isUserNoExist: Bool{
+        get{
+            switch self {
+            case .success(let data):
+                return data.isUserNoExist()
+            default:
+                return false
+            }
+        }
+    }
+    
     var isNoNetWork: Bool {
         get{
             switch self {
-            case let .fail(code, _):
-                return code == .noNetworfkError
+            case .fail(APIError.netWorkError):
+                return true
             default:
                 return false
             }

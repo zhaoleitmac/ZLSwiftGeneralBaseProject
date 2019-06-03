@@ -35,7 +35,7 @@ class ConvertUtil: NSObject, SingletonAvaliable {
 //        if let call = self.STOMappers[sClass + oClass] {
 //            return call(from) as? O ?? O()
 //        } else {
-//            let dict: [String : Any]? = from.cl.jsonDictionary()
+//            let dict: [String : Any]? = from.zl.jsonDictionary()
 //            let instance = O()
 //            instance.cl_setValues(dict ?? [:])
 //            return instance
@@ -57,7 +57,7 @@ class ConvertUtil: NSObject, SingletonAvaliable {
 //            return call(from) as? S ?? S()
 //        } else {
 //            let dict: [String : Any]? = from.cl_dictionary() as? [String : Any]
-//            let instance = to.cl.instance(with: dict ?? [:])
+//            let instance = to.zl.instance(with: dict ?? [:])
 //            return instance ?? S()
 //        }
 //    }

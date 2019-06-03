@@ -10,44 +10,28 @@ import UIKit
 
 enum URLs: String {
     
-    enum Path: String {
+    private enum Domin: String {
         case dev = "https://dev.zlfw.com/";
         case release = "https://www.zlfw.com/"
         
         static var current: String{
             get{
                 #if DEV
-                    return Path.dev.rawValue
+                    return Domin.dev.rawValue
                 #else
-                    return Path.release.rawValue
+                    return Domin.release.rawValue
                 #endif
             }
         }
 
     }
     
-    case getLoginCode = "generateCode.action" //老板登录验证码
+    case getLoginCode = "generateCode.action" //获取登录验证码
     case login = "login.action" //登录
 
     var url: String  {
         get {
-            return Path.current.cl.appendPathComponent(self.rawValue)
-        }
-    }
-    
-    var appNodeUrl: String {
-        get {
-            let url: String?
-            #if DEV
-            url = "https://dev.zlfw.com/"
-            #else
-            url = "https://www.zlfw.com/"
-            #endif
-            if let appNodeUrl = url {
-                return appNodeUrl.cl.changeHttpToHttps().cl.appendPathComponent(self.rawValue)
-            } else {
-                return ""
-            }
+            return Domin.current.zl.appendPathComponent(self.rawValue)
         }
     }
     

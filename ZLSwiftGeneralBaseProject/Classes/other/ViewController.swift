@@ -10,18 +10,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ViewController: UIViewController {
+class ViewController: BasicVC {
 
     @IBOutlet private weak var button: UIButton!
-
-    private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         var model = Model(property1: "1", property2: 1, type: .type2)
         self.button.rx.tap.asDriver().drive(onNext: {() in
             model.property2 += 1
-            print(model.cl.jsonDictionary() ?? [:])
+            print(model.jsonDictionary() ?? [String : Any]())
         }).disposed(by: self.disposeBag)
     }
 
@@ -32,7 +30,7 @@ class ViewController: UIViewController {
 
 }
 
-struct Model: Codable, CLExtensionCompatible {
+struct Model: Codable {
     
     enum ModelType: Int, Codable {
         case type1 = 1

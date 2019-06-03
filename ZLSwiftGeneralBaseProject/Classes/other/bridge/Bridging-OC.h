@@ -6,5 +6,4 @@
 //  Copyright © 2017年 com.channelsoft. All rights reserved.
 //
 
-
-
+#import <CommonCrypto/CommonHMAC.h>

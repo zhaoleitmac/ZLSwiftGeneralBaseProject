@@ -23,7 +23,7 @@ class CommonTabBarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         _ = type(of: self).setupTabBarItemStyle
-        self.tabBar.backgroundImage = UIImage.cl.formColor(UIColor.white, CGSize(width: 5, height: 5))
+        self.tabBar.backgroundImage = UIImage.zl.fromColor(UIColor.white, CGSize(width: 5, height: 5))
     }
     
     func appendChildVC(_ vc:UIViewController,barTitle:String,normalBarImage:UIImage,selectedBarImage:UIImage){
@@ -35,7 +35,7 @@ class CommonTabBarVC: UITabBarController {
         vc.tabBarItem = barItem
         
         
-        self.addChildViewController(vc)
+        self.addChild(vc)
         
     }
 

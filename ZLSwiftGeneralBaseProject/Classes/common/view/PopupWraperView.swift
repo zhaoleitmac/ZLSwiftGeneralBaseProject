@@ -103,7 +103,7 @@ class PopupWraperView: UIView {
                             completion!(finished)
                         } else {
                             if needBobble {
-                                self.contentView.cl.bubbleAnimation(scaleSequence: [1, 1.2, 1], duration: 0.3)
+                                self.contentView.zl.bubbleAnimation(scaleSequence: [1, 1.2, 1], duration: 0.3)
                             }
                         }
                     })

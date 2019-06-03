@@ -79,7 +79,7 @@ class FlexibleButton: UIButton {
     override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
         let font = UIFont.systemFont(ofSize: self.fontSize)
         let title = self.currentTitle ?? ""
-        let titleSize = title.cl.sizeWithFont(font: font)
+        let titleSize = title.zl.sizeWithFont(font: font)
         
         let contentW = titleSize.width + self.imageW + self.space
         let contentH = titleSize.height + self.imageH + self.space
@@ -115,7 +115,7 @@ class FlexibleButton: UIButton {
     override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
         let font = UIFont.systemFont(ofSize: self.fontSize)
         let title = self.currentTitle ?? ""
-        let titleSize = title.cl.sizeWithFont(font: font)
+        let titleSize = title.zl.sizeWithFont(font: font)
 
         let contentW = titleSize.width + self.imageW + self.space
         let contentH = titleSize.height + self.imageH + self.space

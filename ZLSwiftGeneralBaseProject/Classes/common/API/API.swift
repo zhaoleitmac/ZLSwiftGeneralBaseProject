@@ -1,5 +1,5 @@
 //
-//  IAppNodeAPI.swift
+//  API.swift
 //  GGSJ
 //
 //  Created by 赵雷 on 2017/10/23.
@@ -10,11 +10,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol IAppNodeAPI {
+protocol API {
     
     //获取登录验证码
-    func getLoginCode(phoneNum: String) -> Observable<APIResponse<APIResult>>
-    
+    func getLoginCode(info: LoginCodeReqInfo) -> Observable<APIResult<APIBaseResponse>>
 
 }
 

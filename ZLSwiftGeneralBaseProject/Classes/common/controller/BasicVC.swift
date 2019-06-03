@@ -16,16 +16,16 @@ class BasicVC: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    lazy var loaddingHud: LoadStatusHud = {
-        let loaddingHud = LoadStatusHud.hudAddToView(self.view)
-        loaddingHud.snp.makeConstraints({ (maker) in
+    lazy var loadHud: LoadStatusHud = {
+        let loadHud = LoadStatusHud.hudAddToView(self.view)
+        loadHud.snp.makeConstraints({ (maker) in
             maker.width.equalTo(kScreenWidth)
             maker.top.left.bottom.equalToSuperview()
         })
-        loaddingHud.actionDriver.drive(onNext: {[weak self] () in
+        loadHud.action = {[weak self] () in
             self?.hudActionForLoadData()
-        }).disposed(by: self.disposeBag)
-        return loaddingHud
+        }
+        return loadHud
     }()
         
     override var preferredStatusBarStyle: UIStatusBarStyle{

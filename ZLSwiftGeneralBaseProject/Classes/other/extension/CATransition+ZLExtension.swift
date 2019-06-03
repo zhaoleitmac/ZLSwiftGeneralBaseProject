@@ -1,5 +1,5 @@
 //
-//  CATransition+CLExtension.swift
+//  CATransition+ZLExtension.swift
 //  GGSJ
 //
 //  Created by 赵雷 on 2017/10/9.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension CLExtension where Base: CATransition {
+extension ZLExtension where Base: CATransition {
 
     class func startTransitionAniamtion(on view: UIView, type: String, subType: String?, duration: TimeInterval, key: String?) {
         let transition = self.transition(type: type, subType: subType, duration: duration, key: key)
@@ -19,13 +19,13 @@ extension CLExtension where Base: CATransition {
         
         let transition = CATransition()
         transition.duration = duration
-        transition.type = type
-        transition.subtype = subType
+        transition.type = CATransitionType(rawValue: type)
+        transition.subtype = subType.map { CATransitionSubtype(rawValue: $0) }
         return transition;
     }
     
     class func startFadeTransition(on view: UIView, duration: TimeInterval, key: String?) {
-        self.startTransitionAniamtion(on: view, type: kCATransitionFade, subType: nil, duration: duration, key: key)
+        self.startTransitionAniamtion(on: view, type: CATransitionType.fade.rawValue, subType: nil, duration: duration, key: key)
     }
     
 }

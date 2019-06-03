@@ -1,5 +1,5 @@
 //
-//  UIDevice+CLExtension.swift
+//  UIDevice+ZLExtension.swift
 //  GGSJ
 //
 //  Created by 赵雷 on 2017/9/11.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension CLExtension where Base: UIDevice {
+extension ZLExtension where Base: UIDevice {
     
     func deviceModel() -> String {
         var systemInfo = utsname()
@@ -31,17 +31,22 @@ extension CLExtension where Base: UIDevice {
         case "iPhone7,1":                               return "iPhone 6 Plus"
         case "iPhone8,1":                               return "iPhone 6s"
         case "iPhone8,2":                               return "iPhone 6s Plus"
+        case "iPhone8,4":                               return "iPhone SE"
         case "iPhone9,1":                               return "iPhone 7"
         case "iPhone9,3":                               return "iPhone 7"
         case "iPhone9,2":                               return "iPhone 7 Plus"
         case "iPhone9,4":                               return "iPhone 7 Plus"
-        case "iPhone10,1":                               return "iPhone 8"
-        case "iPhone10,4":                               return "iPhone 9"
-        case "iPhone10,2":                               return "iPhone 8 Plus"
-        case "iPhone10,5":                               return "iPhone 8 Plus"
-        case "iPhone10,3":                               return "iPhone X"
-        case "iPhone10,6":                               return "iPhone X"
-            
+        case "iPhone10,1":                              return "iPhone 8"
+        case "iPhone10,4":                              return "iPhone 9"
+        case "iPhone10,2":                              return "iPhone 8 Plus"
+        case "iPhone10,5":                              return "iPhone 8 Plus"
+        case "iPhone10,3":                              return "iPhone X"
+        case "iPhone10,6":                              return "iPhone X"
+           
+        case "iPhone11,2":                              return "iPhone XS"
+        case "iPhone11,4", "iPhone11,6":                return "iPhone XS Max"
+        case "iPhone11,8":                              return "iPhone XR"
+
         case "iPad2,1", "iPad2,2", "iPad2,3", "iPad2,4":return "iPad 2"
         case "iPad3,1", "iPad3,2", "iPad3,3":           return "iPad 3"
         case "iPad3,4", "iPad3,5", "iPad3,6":           return "iPad 4"
@@ -61,13 +66,37 @@ extension CLExtension where Base: UIDevice {
     func is4or4s() -> Bool {
         return self.deviceModel().hasPrefix("iPhone 4")
     }
-    func is5or5sor5c() -> Bool {
-        return self.deviceModel().hasPrefix("iPhone 5")
+    func is5or5sor5corSE() -> Bool {
+        return self.deviceModel().hasPrefix("iPhone 5") || self.deviceModel().hasPrefix("iPhone SE")
     }
-    
+    func hasBang() -> Bool {
+        return self.deviceModel().hasPrefix("iPhone X")
+    }
     func formatedIdentifierForVendor() -> String? {
         let idfv = self.base.identifierForVendor?.uuidString
         return idfv?.replacingOccurrences(of: "-", with: "")
+    }
+    
+    class func uuidString() -> String? {
+        return Base.current.identifierForVendor?.uuidString
+    }
+    
+    func topMargin(hasNavBar: Bool = true, vc: UIViewController? = nil) -> CGFloat {
+        let statusHeight = UIApplication.shared.statusBarFrame.height
+        guard hasNavBar else {
+            return statusHeight
+        }
+        var navHeight: CGFloat = 0
+        if let vc = vc, let height = vc.navigationController?.navigationBar.frame.height {
+            navHeight = height
+        } else {
+            navHeight = 44
+        }
+        return statusHeight + navHeight
+    }
+    
+    func bottomMargin() -> CGFloat {
+        return self.hasBang() ? 34 : 0
     }
     
 }

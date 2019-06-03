@@ -1,11 +1,15 @@
 //
-// Created by liuchang on 2017/4/14.
-// Copyright (c) 2017 com.akira. All rights reserved.
+//  UITableView+ZLExtension.swift
+//  ZHDJ
+//
+//  Created by liuchang on 2017/4/14.
+//  Copyright © 2017年 com.akira. All rights reserved.
 //
 
 import UIKit
 
-extension CLExtension where Base: UITableView {
+extension ZLExtension where Base: UITableView {
+    
     func setEmptyHeader(_ height: CGFloat = 0.01,
                         color: UIColor? = nil) {
         let header = self.createEmptyView(height, color: color)

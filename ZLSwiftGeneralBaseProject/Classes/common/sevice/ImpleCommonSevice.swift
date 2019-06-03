@@ -15,13 +15,13 @@ class ImpleCommonSevice: NSObject, ICommonSevice, SingletonAvaliable {
     }
     
     func checkAccountValidable(account: String) -> String? {
-        return account.cl.isMobilePhoneNumber() ? nil : "请输入合法的手机号码"
+        return account.zl.isMobilePhoneNumber() ? nil : "请输入合法的手机号码"
     }
         func checkLoginInfo(account: String, code: String) -> String? {
-        if account.cl.isMobilePhoneNumber() {
+        if account.zl.isMobilePhoneNumber() {
             return "请输入合法的手机号码"
         }
-        if code.cl.length != 6 {
+        if code.zl.length != 6 {
             return "验证码输入错误"
         }
         return nil

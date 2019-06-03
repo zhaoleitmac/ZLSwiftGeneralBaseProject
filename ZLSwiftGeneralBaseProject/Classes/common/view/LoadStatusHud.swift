@@ -14,62 +14,68 @@ enum LoadStatusHUDContentType {
     case success
     case error
     case progress
-    case dataEmpty(imageName: String?, title: String?)
     case noNetWork
-    
-    case labeledError(imageName: String?, title: String?, subtitle: String?, btnTitle: String?)
-    case labeledProgress(imageName: String?, title: String?, subtitle: String?)
-    case labeledProgressAnimation(imageArray: [String], title: String?, subtitle: String?)
-    case labeledDataEmpty(imageName: String?, title: String?, subtitle: String?, btnTitle: String?)
+    case dataEmpty
+    case labeledError(imageName: String?, title: String?)
+    case labeledProgress(imageName: String?, title: String?)
+    case labeledProgressAnimation(title: String?)
+    case labeledDataEmpty(imageName: String?, title: String?)
 }
 
 
 class LoadStatusHud: UIView {
     
     @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var mainLabel: UILabel!
-    @IBOutlet private weak var subLabel: UILabel!
     @IBOutlet private weak var actionBtn: UIButton!
+    @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
     
-    var actionDriver: Driver<Void>!
+    private var content: LoadStatusHUDContentType = .success
     
-    private weak var superView: UIView?
+    var reloading = false
+    
+    var action: (() -> ())?
     
     class func hudAddToView(_ view: UIView) -> LoadStatusHud {
-        let hud = LoadStatusHud.cl.formXIB()
-        hud.actionDriver = hud.actionBtn.rx.tap.asDriver()
+        let hud = LoadStatusHud.zl.fromXIB()
         view.addSubview(hud)
-        hud.superView = view
+        hud.snp.makeConstraints({ (maker) in
+            maker.width.equalTo(kScreenWidth)
+            maker.top.left.bottom.equalToSuperview()
+        })
         hud.show(.success)
         return hud
     }
     
     func show(_ content: LoadStatusHUDContentType) {
-        if self.superView != nil {
+        if self.superview != nil {
+            self.reloading = false
+            self.content = content
             self.isHidden = false
+            self.actionBtn.isUserInteractionEnabled = false
+            self.indicatorView.isHidden = true
             switch content {
             case .success:
                 self.isHidden = true
             case .error:
-                self.changeContent(imageName: "bg_erro", title: "哎呀...出错了", btnTitle: "点我重试")
-            case let .labeledError(imageName, title, subtitle, btnTitle):
-                self.changeContent(imageName: imageName, title: title, subtitle: subtitle, btnTitle: btnTitle)
+                self.actionBtn.isUserInteractionEnabled = true
+                self.changeContent(imageName: "response_empty", title: "加载失败，点击重试")
+            case let .labeledError(imageName, title):
+                self.actionBtn.isUserInteractionEnabled = true
+                self.changeContent(imageName: imageName, title: title)
             case .progress:
                 self.changeContent(imageName: nil, title: "努力加载中...")
-            case let .labeledProgress(imageName, title, subtitle):
-                self.changeContent(imageName: imageName, title: title, subtitle: subtitle)
-            case let .labeledProgressAnimation(imageArray, title, subtitle):
-                let image = imageArray.count > 0 ? imageArray.first : nil
-                self.changeContent(imageName: image, title: title, subtitle: subtitle)
-                if imageArray.count > 1 {
-                    self.imageViewStartAnimation(imageArray: imageArray)
-                }
-            case let .dataEmpty(imageName, title):
-                self.changeContent(imageName: imageName ?? "no_data_img", title: title ?? "暂无数据")
-            case let .labeledDataEmpty(imageName, title, subtitle, btnTitle):
-                self.changeContent(imageName: imageName, title: title, subtitle: subtitle, btnTitle: btnTitle)
+            case let .labeledProgress(imageName, title):
+                self.changeContent(imageName: imageName, title: title)
+            case let .labeledProgressAnimation(title):
+                self.indicatorView.isHidden = false
+                self.changeContent(imageName: nil, title: title)
+                self.indicatorView.startAnimating()
+            case .dataEmpty:
+                self.changeContent(imageName: "response_empty", title: "暂无数据")
+            case let .labeledDataEmpty(imageName, title):
+                self.changeContent(imageName: imageName ?? "response_empty", title: title ?? "暂无数据")
             case .noNetWork:
-                self.changeContent(imageName: "not_net", title: "您的手机网络好像出问题了！", subtitle: "请检查您的网络设置", btnTitle: "刷新一下")
+                self.changeContent(imageName: "not_net", title: "您的手机网络好像出问题了，请检查您的网络设置")
             }
         }
         
@@ -79,18 +85,26 @@ class LoadStatusHud: UIView {
         self.show(.success)
     }
     
-    private func changeContent(imageName: String?, title: String?, subtitle: String? = nil, btnTitle: String? = nil) {
-        self.imageView.stopAnimating()
-        imageName != nil ? (self.imageView.image = UIImage(named: imageName!)) : (self.imageView.isHidden = true)
-        title != nil ? (self.mainLabel.text = title!) : (self.mainLabel.isHidden = true)
-        subtitle != nil ? (self.subLabel.text = subtitle!) : (self.subLabel.isHidden = true)
-        btnTitle != nil ? (self.actionBtn.setTitle(btnTitle, for: .normal)) : (self.actionBtn.isHidden = true)
+    private func changeContent(imageName: String?, title: String? = nil) {
+        if let imageName = imageName {
+            self.imageView.image = UIImage(named: imageName)
+            self.imageView.isHidden = false
+        } else {
+            self.imageView.isHidden = true
+        }
+        if let title = title {
+            self.actionBtn.setTitle(title, for: .normal)
+            self.actionBtn.isHidden = false
+        } else {
+            self.actionBtn.isHidden = true
+        }
     }
     
-    private func imageViewStartAnimation(imageArray: [String]) {
-        self.imageView.animationImages = imageArray.map({UIImage(named: $0)!})
-        self.imageView.animationDuration = 0.25
-        self.imageView.startAnimating()
+    @IBAction private func btnAction() {
+        self.reloading = true
+        if let action = self.action {
+            action()
+        }
     }
     
 }

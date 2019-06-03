@@ -13,17 +13,17 @@ class CommonNavigationVC: UINavigationController {
         //load intinal dispach_once被废弃，利用延迟加载，变相只执行一次，
         let bar =  UINavigationBar.appearance()
         let barItem = UIBarButtonItem.appearance()
-        let bgImage = UIImage.cl.formColor(UIColor.naviBarBG, CGSize(width: 1, height: 1))
+        let bgImage = UIImage.zl.fromColor(UIColor.naviBarBG, CGSize(width: 1, height: 1))
         let titleShadow = NSShadow()
-        let titleTextAttr = [NSAttributedStringKey.shadow: titleShadow,
-                             NSAttributedStringKey.font: UIFont.naviBarTitleFont,
-                             NSAttributedStringKey.foregroundColor: UIColor.white]
-        let itemTextAttrNormal = [NSAttributedStringKey.shadow: titleShadow,
-                                  NSAttributedStringKey.font: UIFont.naviBarItemFont,
-                                  NSAttributedStringKey.foregroundColor: UIColor.naviBarTitle]
-        let itemTextAttrHighlight = [NSAttributedStringKey.shadow:titleShadow,
-                                     NSAttributedStringKey.font:UIFont.naviBarItemFont,
-                                     NSAttributedStringKey.foregroundColor:UIColor.naviBarItems]
+        let titleTextAttr = [NSAttributedString.Key.shadow: titleShadow,
+                             NSAttributedString.Key.font: UIFont.naviBarTitleFont,
+                             NSAttributedString.Key.foregroundColor: UIColor.white]
+        let itemTextAttrNormal = [NSAttributedString.Key.shadow: titleShadow,
+                                  NSAttributedString.Key.font: UIFont.naviBarItemFont,
+                                  NSAttributedString.Key.foregroundColor: UIColor.naviBarTitle]
+        let itemTextAttrHighlight = [NSAttributedString.Key.shadow:titleShadow,
+                                     NSAttributedString.Key.font:UIFont.naviBarItemFont,
+                                     NSAttributedString.Key.foregroundColor:UIColor.naviBarItems]
         
         bar.tintColor = UIColor.white;
         bar.setBackgroundImage(bgImage, for: .default)
@@ -46,7 +46,7 @@ class CommonNavigationVC: UINavigationController {
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        let isRoot = self.childViewControllers.count == 0
+        let isRoot = self.children.count == 0
         if (!isRoot){
             let target:UIViewController
             let selector = #selector(back)

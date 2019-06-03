@@ -9,18 +9,18 @@
 import Foundation
 
 protocol SingletonAvaliable {
-//    associatedtype baseOn
-    init()    
+    //    associatedtype baseOn
+    init()
 }
 
 
 class SingletonFactory : NSObject {
-    private static var singletons = [String:SingletonAvaliable]()
-
-    class func getInstance<T : SingletonAvaliable>(classType:T.Type) ->T{
+    private static var singletons = [String: SingletonAvaliable]()
+    
+    class func getInstance<T: SingletonAvaliable>(classType:T.Type) -> T {
         let className = String(describing: classType)
         var instance:T? = self.singletons[className] as? T
-        if instance == nil{
+        if instance == nil {
             instance = classType.init()
             self.singletons[className] = instance
         }
@@ -28,3 +28,17 @@ class SingletonFactory : NSObject {
     }
 }
 
+extension SingletonAvaliable {
+    
+    static var `default`: Self {
+        return SingletonFactory.getInstance(classType: self)
+    }
+    
+    static var shared: Self {
+        return SingletonFactory.getInstance(classType: self)
+    }
+    
+    static var current: Self {
+        return SingletonFactory.getInstance(classType: self)
+    }
+}

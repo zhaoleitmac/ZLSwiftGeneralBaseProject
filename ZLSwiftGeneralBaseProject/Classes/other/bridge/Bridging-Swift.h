@@ -6,7 +6,7 @@
 //  Copyright © 2017年 com.channelsoft. All rights reserved.
 //
 #ifdef DEV
-#import "Development-Bridging-Header.h"
+#import "ZLSwiftGeneralBaseProject_development-Swift.h"
 #else
-#import "Release-Bridging-Header.h"
+#import "ZLSwiftGeneralBaseProject_release-Swift.h"
 #endif
